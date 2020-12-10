@@ -6,7 +6,9 @@
   "scripts": {
     "lint": "ts-standard --fix",
     "test": "jest",
-    "start": "sls offline start"
+    "start": "sls offline start",
+    "clean": "rm -rf .build && rm -rf .serverless/*.zip",
+    "build": "npm run clean && sls package"
   },
   "author": "oliver.ross@hotmail.com",
   "license": "ISC",
