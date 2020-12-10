@@ -1,0 +1,21 @@
+service: pa-media-tech-challenge
+
+frameworkVersion: '2'
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  apiGateway:
+    shouldStartNameWithService: true
+
+functions:
+  hello-world:
+    handler: src/hello-world/index.main
+    events:
+      - http:
+          path: /v1/hello
+          method: get
