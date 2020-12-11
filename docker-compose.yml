@@ -8,3 +8,12 @@ services:
       - "3000:3000"
     volumes:
       - ./src:/opt/app/pa-media/api/src
+  docs:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "3001:8080"
+    volumes:
+      - ./docs/openapi.json:/usr/share/nginx/html/openapi.json
+      - ./coverage/lcov-report:/usr/share/nginx/html/coverage
+    environment:
+      - SWAGGER_JSON_URL=/openapi.json

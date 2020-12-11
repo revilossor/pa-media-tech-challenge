@@ -17,7 +17,7 @@
   "paths": {
     "/v1/list": {
       "get": {
-        "summary": "get all list ids",
+        "summary": "get all the lists",
         "responses": {
           "200": {
             "$ref": "#/components/responses/listIdListResponse"
