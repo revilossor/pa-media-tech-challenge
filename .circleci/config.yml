@@ -4,6 +4,7 @@ jobs:
       - image: circleci/node:12.20.0
     steps:
       - checkout
+      - run: npm ci
       - run: npm t
       - store_artifacts:
           path: test-results
