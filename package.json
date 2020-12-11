@@ -9,7 +9,8 @@
     "start": "sls offline start",
     "clean": "rm -rf .build && rm -rf .serverless/*.zip",
     "build": "npm run clean && sls package",
-    "docker": "COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build && exit 0"
+    "docker": "COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up --build && exit 0",
+    "exec": "docker-compose exec serverless-api "
   },
   "author": "oliver.ross@hotmail.com",
   "license": "ISC",
