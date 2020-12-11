@@ -1,9 +1,36 @@
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
-workflows:
-  node-tests:
-    jobs:
-      - node/test
+commands:
+  install:
+    description: "Install npm dependencies"
+    steps:
+      - run:
+          command: npm install
+          when: always
+  lint:
+    description: "Run linting"
+    steps:
+      - run:
+          command: npm run lint
+          when: always
+  unit:
+    description: "Run unit tests"
+    steps:
+      - run:
+          command: npm test
+          when: always
+jobs:
+  test:
+    executor: default
+    steps:
+      - checkout
+      - install
+      - lint
+      - unit
       - store_test_results:
           path: test-results
+workflows:
+  test:
+    jobs:
+      - test
