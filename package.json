@@ -30,7 +30,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && jest -o",
+      "pre-commit": "lint-staged && jest -o --collectCoverage=false",
       "pre-push": "npm t"
     }
   },
