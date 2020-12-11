@@ -1,0 +1,324 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "pa-media-tech-challenge",
+    "contact": {
+      "name": "Oliver Ross",
+      "email": "oliver.ross@hotmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Development"
+    }
+  ],
+  "paths": {
+    "/v1/list": {
+      "get": {
+        "summary": "get all list ids",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/listIdListResponse"
+          },
+          "500": {
+            "$ref": "#/components/responses/errorResponse"
+          }
+        }
+      }
+    },
+    "/v1/list/{listId}": {
+      "put": {
+        "summary": "create a list",
+        "parameters": [
+          "$ref": "#/components/parameters/listIdParameter"
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/listIdListResponse"
+          },
+          "409": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "500": {
+            "$ref": "#/components/responses/errorResponse"
+          }
+        }
+      },
+      "delete": {
+        "summary": "remove a list",
+        "parameters": [
+          "$ref": "#/components/parameters/listIdParameter"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/listIdListResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "500": {
+            "$ref": "#/components/responses/errorResponse"
+          }
+        }
+      }
+    },
+    "/v1/list/{listId}/item": {
+      "get": {
+        "summary": "get the items in a list",
+        "parameters": [
+          "$ref": "#/components/parameters/listIdParameter",
+          "$ref": "#/components/parameters/orderParameter",
+          "$ref": "#/components/parameters/pageParameter"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/itemListResponse"
+          },
+          "204": {
+            "$ref": "#/components/responses/itemListResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "404": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "500": {
+            "$ref": "#/components/responses/errorResponse"
+          }
+        }
+      },
+      "put": {
+        "summary": "create an item in a list",
+        "parameters": [
+          "$ref": "#/components/parameters/listIdParameter"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/createItemRequest"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/itemListResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "500": {
+            "$ref": "#/components/responses/errorResponse"
+          }
+        }
+      }
+    },
+    "/v1/list/{listId}/item/{itemKey}": {
+      "patch": {
+        "summary": "update an item in a list",
+        "parameters": [
+          "$ref": "#/components/parameters/listIdParameter",
+          "$ref": "#/components/parameters/itemKeyParameter"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/updateItemRequest"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/itemListResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "422": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "500": {
+            "$ref": "#/components/responses/errorResponse"
+          }
+        }
+      },
+      "delete": {
+        "summary": "remove an item from a list",
+        "parameters": [
+          "$ref": "#/components/parameters/listIdParameter",
+          "$ref": "#/components/parameters/itemKeyParameter"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/itemListResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "422": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "500": {
+            "$ref": "#/components/responses/errorResponse"
+          }
+        }
+      }
+    },
+  },
+  "components": {
+    "parameters": {
+      "listIdParameter": {
+        "name": "listId",
+        "in": "path",
+        "description": "the id of a list",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/listIdSchema"
+        }
+      },
+      "itemKeyParameter": {
+        "name": "itemKey",
+        "in": "path",
+        "description": "the key of the list item",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/itemKeySchema"
+        }
+      },
+      "orderParameter": {
+        "name": "order",
+        "in": "query",
+        "description": "sort order for list items",
+        "schema": {
+          "type": "string",
+          "enum": ["ascending", "descending"],
+          "example": "descending"
+        }
+      },
+      "pageParameter": {
+        "name": "page",
+        "in": "query",
+        "description": "page for paginated items",
+        "schema": {
+          "type": "integer",
+          "example": 1
+        }
+      },
+    },
+    "requestBodies": {
+      "createItemRequest": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/createItemSchema"
+            }
+          }
+        }
+      },
+      "updateItemRequest": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/createItemSchema"
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "errorResponse": {
+        "description": "a generic error response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/errorSchema"
+            }
+          }
+        }
+      },
+      "listIdListResponse": {
+        "description": "a list of list ids",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/listIdListSchema"
+            }
+          }
+        }
+      },
+      "itemListResponse": {
+        "description": "a list of items",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/itemListSchema"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "errorSchema": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "some_error_message"
+          }
+        }
+      },
+      "listIdListSchema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/listIdSchema"
+        }
+      },
+      "itemListSchema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/itemSchema"
+        }
+      },
+      "listIdSchema": {
+        "type": "string",
+        "example": "some_todo_list"
+      },
+      "itemKeySchema": {
+        "type": "string",
+        "example": "some_item_key"
+      },
+      "itemSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "the key of the item"
+          },
+          "listId": {
+            "type": "string",
+            "description": "the list the item belongs to"
+          },
+          "value": {
+            "type": "string",
+            "description": "the value of the item"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "the time the item was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "the time the item was last modified"
+          }
+        }
+      },
+      "createItemSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "the value of the item"
+          }
+        }
+      }
+    }
+  }
+}
