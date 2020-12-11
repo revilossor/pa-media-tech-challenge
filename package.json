@@ -40,7 +40,15 @@
     "preset": "ts-jest",
     "resetMocks": true,
     "testEnvironment": "node",
-    "reporters": [ "default", "jest-junit" ]
+    "reporters": [ "default", "jest-junit" ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
   },
   "jest-junit": {
     "outputDirectory": "test-results/jest",
