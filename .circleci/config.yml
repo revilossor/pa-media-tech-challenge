@@ -2,11 +2,11 @@ jobs:
   test:
     docker:
       - image: circleci/node@3.0.0
-        steps:
-          - checkout
-          - run: npm t
-          - store_artifacts:
-              path: test-results
+      steps:
+        - checkout
+        - run: npm t
+        - store_artifacts:
+            path: test-results
 workflows:
   version: 2
   main:
