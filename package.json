@@ -4,7 +4,7 @@
   "description": "example API for pa-media techical challenge",
   "main": "",
   "scripts": {
-    "lint": "ts-standard --fix",
+    "lint": "ts-standard",
     "test": "jest",
     "start": "sls offline start",
     "clean": "rm -rf .build && rm -rf .serverless/*.zip",
