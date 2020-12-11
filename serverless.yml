@@ -19,3 +19,7 @@ functions:
       - http:
           path: /v1/hello
           method: get
+
+custom:
+  serverless-offline:
+    host: 0.0.0.0
