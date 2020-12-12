@@ -23,7 +23,6 @@ interface TestThing {
   favouriteColour: string
 }
 
-// TODO handle error cases...
 describe('When I instantiate a RedisDataStore with an id', () => {
   let instance: RedisDataStore<TestThing>
 
