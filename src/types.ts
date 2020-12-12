@@ -1,6 +1,6 @@
 import { KeyedObject } from './lib/data-store/IDataStore'
 
-export interface Item extends KeyedObject{
+export interface Item extends KeyedObject {
   listKey: string
   value: string
   createdAt: string

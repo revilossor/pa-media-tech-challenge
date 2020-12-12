@@ -23,30 +23,30 @@ describe('When I instantiate a list repository', () => {
     instance = new ListRepository(dataStore)
   })
 
-  describe('And I create an item', () => {
+  describe('And I create a list', () => {
     beforeEach(async () => {
       await instance.create(list)
     })
 
-    it('Then the item is created in the data store', () => {
+    it('Then the list is created in the data store', () => {
       expect(dataStore.create).toHaveBeenCalledWith(list)
     })
   })
-  describe('And I remove an item', () => {
+  describe('And I remove a list', () => {
     beforeEach(async () => {
       await instance.remove(list)
     })
 
-    it('Then the item is removed in the data store', () => {
+    it('Then the list is removed in the data store', () => {
       expect(dataStore.remove).toHaveBeenCalledWith(list.key)
     })
   })
-  describe('And I list the items', () => {
+  describe('And I list the lists', () => {
     beforeEach(async () => {
       await instance.list()
     })
 
-    it('Then the the list is fetched from the data store', () => {
+    it('Then the the lists are fetched from the data store', () => {
       expect(dataStore.list).toHaveBeenCalled()
     })
   })
