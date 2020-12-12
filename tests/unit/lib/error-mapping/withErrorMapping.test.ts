@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
-import withErrorMapping from '../../../src/lib/withErrorMapping'
+import withErrorMapping from '../../../../src/lib/error-mapping/withErrorMapping'
 
 class CustomError extends Error {
   name = 'CustomError'
