@@ -20,7 +20,7 @@ export default class ListRepository extends Repository<List> {
   }
 
   public static fromId (id: string): ListRepository {
-    const store = new RedisDataStore<List>(id)
+    const store = new RedisDataStore<List>(id, 'redis')
     return new ListRepository(store)
   }
 }

@@ -71,7 +71,7 @@ describe('When I get a list repository from an id', () => {
   })
 
   it('Then a redis data store is instantiated with the id', () => {
-    expect(RedisDataStore).toHaveBeenCalledWith(id)
+    expect(RedisDataStore).toHaveBeenCalledWith(id, 'redis')
   })
 
   it('And a list repository is returned', () => {

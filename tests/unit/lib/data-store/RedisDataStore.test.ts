@@ -31,7 +31,7 @@ describe('When I instantiate a RedisDataStore with an id', () => {
 
   beforeEach(() => {
     createClient.mockImplementation(() => mockRedisClient)
-    instance = new RedisDataStore<TestThing>(id)
+    instance = new RedisDataStore<TestThing>(id, 'redis')
   })
 
   describe('Then a redis client is initialised', () => {

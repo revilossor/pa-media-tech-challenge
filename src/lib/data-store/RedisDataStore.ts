@@ -4,9 +4,9 @@ import { createNodeRedisClient, WrappedNodeRedisClient } from 'handy-redis'
 export default class RedisDataStore<T extends KeyedObject> implements IDataStore<T> {
   private readonly client: WrappedNodeRedisClient
 
-  public constructor (private readonly id: string) {
+  public constructor (private readonly id: string, domain: string) {
     this.client = createNodeRedisClient({
-      url: 'redis://redis/'
+      url: `redis://${domain}/`
     })
   }
 

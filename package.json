@@ -5,8 +5,8 @@
   "main": "",
   "scripts": {
     "lint": "ts-standard",
-    "test": "jest tests/unit",
-    "integration": "jest tests/integration --collectCoverage=false",
+    "test": "jest --testMatch=**/*.test.ts",
+    "integration": "jest --testMatch=**/*.integration.ts --collectCoverage=false",
     "start": "sls offline start",
     "clean": "rm -rf .build && rm -rf .serverless/*.zip",
     "build": "npm run clean && sls package",
@@ -51,6 +51,7 @@
     ],
     "coveragePathIgnorePatterns": [
       "unit/helper",
+      "integration/helper",
       "BadRequestError.ts",
       "NotFoundError.ts"
     ],

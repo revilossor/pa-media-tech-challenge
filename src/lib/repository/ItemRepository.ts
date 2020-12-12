@@ -37,7 +37,7 @@ export default class ItemRepository extends Repository<Item> {
   }
 
   public static fromId (id: string): ItemRepository {
-    const store = new RedisDataStore<Item>(id)
+    const store = new RedisDataStore<Item>(id, 'redis')
     return new ItemRepository(store)
   }
 }
