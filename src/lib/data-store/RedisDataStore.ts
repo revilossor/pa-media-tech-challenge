@@ -45,12 +45,15 @@ export default class RedisDataStore<T extends KeyedObject> implements IDataStore
 
   public async list (): Promise<T[]> {
     const keys = await this.client.keys(`${this.id}::*`)
-    const shortKeys = keys.map(key => key.split('::').pop() ?? '')
+    const shortKeys = keys.map(key => key.split('::').pop())
     let list: T[] = []
     for (const key of shortKeys) {
-      if (key === '') { throw Error('malformed key') }
-      const item = await this.find(key)
-      list = [...list, ...item]
+      if (key !== undefined && key.length > 0) {
+        const item = await this.find(key)
+        list = [...list, ...item]
+      } else {
+        throw Error('malformed key')
+      }
     }
     return list
   }
