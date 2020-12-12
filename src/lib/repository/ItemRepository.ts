@@ -3,12 +3,25 @@ import RedisDataStore from '../data-store/RedisDataStore'
 import Repository from './Repository'
 
 export default class ItemRepository extends Repository<Item> {
+  private getTimestamp (): string {
+    return `${new Date().toISOString()}`
+  }
+
   public async create (item: Item): Promise<Item[]> {
-    return await super.create(item)
+    const now = this.getTimestamp()
+    return await super.create({
+      ...item,
+      createdAt: now,
+      updatedAt: now
+    })
   }
 
   public async update (item: Item): Promise<Item[]> {
-    return await super.update(item)
+    const now = this.getTimestamp()
+    return await super.update({
+      ...item,
+      updatedAt: now
+    })
   }
 
   public async remove (item: Item): Promise<void> {

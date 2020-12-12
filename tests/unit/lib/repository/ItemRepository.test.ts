@@ -20,6 +20,9 @@ const item = {
   updatedAt: 'some other iso time'
 }
 
+const now = 'now'
+Date.prototype.toISOString = () => now // eslint-disable-line no-extend-native
+
 describe('When I instantiate an item repository', () => {
   let instance: ItemRepository
 
@@ -32,8 +35,12 @@ describe('When I instantiate an item repository', () => {
       await instance.create(item)
     })
 
-    it('Then the item is created in the data store', () => {
-      expect(dataStore.create).toHaveBeenCalledWith(item)
+    it('Then the item is created in the data store, with timestamp updates', () => {
+      expect(dataStore.create).toHaveBeenCalledWith({
+        ...item,
+        createdAt: now,
+        updatedAt: now
+      })
     })
   })
   describe('And I update an item', () => {
@@ -41,8 +48,11 @@ describe('When I instantiate an item repository', () => {
       await instance.update(item)
     })
 
-    it('Then the item is created in the data store', () => {
-      expect(dataStore.update).toHaveBeenCalledWith(item.key, item)
+    it('Then the item is updated in the data store, with timestamp updates', () => {
+      expect(dataStore.update).toHaveBeenCalledWith(item.key, {
+        ...item,
+        updatedAt: now
+      })
     })
   })
   describe('And I remove an item', () => {
