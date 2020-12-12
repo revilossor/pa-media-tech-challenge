@@ -3,6 +3,7 @@
     "strict": true,
     "preserveConstEnums": true,
     "strictNullChecks": true,
+    "noUnusedLocals": false,
     "sourceMap": true,
     "allowJs": true,
     "target": "es5",

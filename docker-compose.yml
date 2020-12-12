@@ -17,3 +17,7 @@ services:
       - ./coverage/lcov-report:/usr/share/nginx/html/coverage
     environment:
       - SWAGGER_JSON_URL=/openapi.json
+  redis:
+    image: redis
+    ports:
+     - "6379:6379"
