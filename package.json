@@ -50,7 +50,7 @@
       "jest-junit"
     ],
     "coveragePathIgnorePatterns": [
-      "getEvent.ts",
+      "unit/helper",
       "BadRequestError.ts",
       "NotFoundError.ts"
     ],
