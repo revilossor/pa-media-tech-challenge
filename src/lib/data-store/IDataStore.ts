@@ -9,4 +9,5 @@ export default interface IDataStore<T extends KeyedObject> {
   remove: (key: string) => Promise<void>
   find: (key: string) => Promise<T[]>
   list: () => Promise<T[]>
+  close: () => Promise<void>
 }
