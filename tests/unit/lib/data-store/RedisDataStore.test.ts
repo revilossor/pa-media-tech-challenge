@@ -93,35 +93,35 @@ describe('When I instantiate a RedisDataStore with an id', () => {
   describe('When I find an item that exists', () => {
     let result: TestThing[]
 
-    beforeEach(async () => {
-      mockRedisClient.get.mockReturnValue(
-        JSON.stringify(thing)
-      )
-      result = await instance.find(thing.key)
+    describe('And the item exists', () => {
+      beforeEach(async () => {
+        mockRedisClient.get.mockReturnValue(
+          JSON.stringify(thing)
+        )
+        result = await instance.find(thing.key)
+      })
+
+      it('Then the client is used to get the store specific item key from redis', () => {
+        expect(mockRedisClient.get).toHaveBeenCalledWith(`${id}::${thing.key}`)
+      })
+
+      it('And the parsed thing returned from redis is returned', () => {
+        expect(result).toEqual([thing])
+      })
     })
 
-    it('Then the client is used to get the store specific item key from redis', () => {
-      expect(mockRedisClient.get).toHaveBeenCalledWith(`${id}::${thing.key}`)
-    })
+    describe('And the item does not exist', () => {
+      beforeEach(async () => {
+        result = await instance.find(thing.key)
+      })
 
-    it('And the parsed thing returned from redis is returned', () => {
-      expect(result).toEqual([thing])
-    })
-  })
+      it('Then the client is used to get the store specific item key from redis', () => {
+        expect(mockRedisClient.get).toHaveBeenCalledWith(`${id}::${thing.key}`)
+      })
 
-  describe('When I find an item that does not exist', () => {
-    let result: TestThing[]
-
-    beforeEach(async () => {
-      result = await instance.find(thing.key)
-    })
-
-    it('Then the client is used to get the store specific item key from redis', () => {
-      expect(mockRedisClient.get).toHaveBeenCalledWith(`${id}::${thing.key}`)
-    })
-
-    it('And an empty array is returned', () => {
-      expect(result).toEqual([])
+      it('And an empty array is returned', () => {
+        expect(result).toEqual([])
+      })
     })
   })
 
