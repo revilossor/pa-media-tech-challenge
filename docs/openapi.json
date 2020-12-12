@@ -20,7 +20,7 @@
         "summary": "get all the lists",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/listIdListResponse"
+            "$ref": "#/components/responses/listKeyListResponse"
           },
           "500": {
             "$ref": "#/components/responses/errorResponse"
@@ -28,15 +28,15 @@
         }
       }
     },
-    "/v1/list/{listId}": {
+    "/v1/list/{listKey}": {
       "put": {
         "summary": "create a list",
         "parameters": [
-          "$ref": "#/components/parameters/listIdParameter"
+          "$ref": "#/components/parameters/listKeyParameter"
         ],
         "responses": {
           "201": {
-            "$ref": "#/components/responses/listIdListResponse"
+            "$ref": "#/components/responses/listKeyListResponse"
           },
           "409": {
             "$ref": "#/components/responses/errorResponse",
@@ -49,11 +49,11 @@
       "delete": {
         "summary": "remove a list",
         "parameters": [
-          "$ref": "#/components/parameters/listIdParameter"
+          "$ref": "#/components/parameters/listKeyParameter"
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/listIdListResponse"
+            "$ref": "#/components/responses/listKeyListResponse"
           },
           "404": {
             "$ref": "#/components/responses/errorResponse",
@@ -64,11 +64,11 @@
         }
       }
     },
-    "/v1/list/{listId}/item": {
+    "/v1/list/{listKey}/item": {
       "get": {
         "summary": "get the items in a list",
         "parameters": [
-          "$ref": "#/components/parameters/listIdParameter",
+          "$ref": "#/components/parameters/listKeyParameter",
           "$ref": "#/components/parameters/orderParameter",
           "$ref": "#/components/parameters/pageParameter"
         ],
@@ -93,7 +93,7 @@
       "put": {
         "summary": "create an item in a list",
         "parameters": [
-          "$ref": "#/components/parameters/listIdParameter"
+          "$ref": "#/components/parameters/listKeyParameter"
         ],
         "requestBody": {
           "$ref": "#/components/requestBodies/createItemRequest"
@@ -111,11 +111,11 @@
         }
       }
     },
-    "/v1/list/{listId}/item/{itemKey}": {
+    "/v1/list/{listKey}/item/{itemKey}": {
       "patch": {
         "summary": "update an item in a list",
         "parameters": [
-          "$ref": "#/components/parameters/listIdParameter",
+          "$ref": "#/components/parameters/listKeyParameter",
           "$ref": "#/components/parameters/itemKeyParameter"
         ],
         "requestBody": {
@@ -139,7 +139,7 @@
       "delete": {
         "summary": "remove an item from a list",
         "parameters": [
-          "$ref": "#/components/parameters/listIdParameter",
+          "$ref": "#/components/parameters/listKeyParameter",
           "$ref": "#/components/parameters/itemKeyParameter"
         ],
         "responses": {
@@ -161,13 +161,13 @@
   },
   "components": {
     "parameters": {
-      "listIdParameter": {
-        "name": "listId",
+      "listKeyParameter": {
+        "name": "listKey",
         "in": "path",
-        "description": "the id of a list",
+        "description": "the key of a list",
         "required": true,
         "schema": {
-          "$ref": "#/components/schemas/listIdSchema"
+          "$ref": "#/components/schemas/listKeySchema"
         }
       },
       "itemKeyParameter": {
@@ -232,12 +232,12 @@
           }
         }
       },
-      "listIdListResponse": {
-        "description": "a list of list ids",
+      "listKeyListResponse": {
+        "description": "a list of list keys",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/listIdListSchema"
+              "$ref": "#/components/schemas/listKeyListSchema"
             }
           }
         }
@@ -263,10 +263,10 @@
           }
         }
       },
-      "listIdListSchema": {
+      "listKeyListSchema": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/listIdSchema"
+          "$ref": "#/components/schemas/listKeySchema"
         }
       },
       "itemListSchema": {
@@ -275,7 +275,7 @@
           "$ref": "#/components/schemas/itemSchema"
         }
       },
-      "listIdSchema": {
+      "listKeySchema": {
         "type": "string",
         "example": "some_todo_list"
       },
@@ -290,7 +290,7 @@
             "type": "string",
             "description": "the key of the item"
           },
-          "listId": {
+          "listKey": {
             "type": "string",
             "description": "the list the item belongs to"
           },
