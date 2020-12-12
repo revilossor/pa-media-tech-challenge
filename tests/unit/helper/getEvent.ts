@@ -15,8 +15,10 @@ export default function getEvent (params?: EventParams): APIGatewayProxyEvent {
       listKey: params?.listKey ?? undefined,
       itemKey: params?.itemKey ?? undefined
     },
-    body: params.value === undefined ? '' : JSON.stringify({
-      value: params.value
-    })
+    body: params.value === undefined
+      ? undefined
+      : JSON.stringify({
+        value: params.value
+      })
   } as unknown as APIGatewayProxyEvent
 }

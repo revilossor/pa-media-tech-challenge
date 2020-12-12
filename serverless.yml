@@ -27,6 +27,17 @@ functions:
           path: /v1/list
           method: get
 
+  create-list:
+    handler: src/create-list/index.main
+    events:
+      - http:
+          path: /v1/list/{listId}
+          method: put
+          request:
+            parameters:
+              paths:
+                listId: true
+
 custom:
   serverless-offline:
     host: 0.0.0.0
