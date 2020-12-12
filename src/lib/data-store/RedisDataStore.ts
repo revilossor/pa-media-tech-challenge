@@ -26,8 +26,9 @@ export default class RedisDataStore<T extends KeyedObject> implements IDataStore
     return await this.set(item)
   }
 
-  public async update (_key: string, item: T): Promise<T[]> {
-    return await this.set(item)
+  public async update (key: string, item: T): Promise<T[]> {
+    const [existing] = await this.find(key)
+    return await this.set({ ...existing, ...item })
   }
 
   public async remove (key: string): Promise<void> {

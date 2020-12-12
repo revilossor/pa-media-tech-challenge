@@ -49,7 +49,7 @@ describe('When I instantiate a RedisDataStore with an id', () => {
       result = await instance.create(thing)
     })
 
-    it('Then the client is used to set the item in redis, with the store id in the key', () => {
+    it('Then the client is used to set the item in redis', () => {
       expect(mockRedisClient.set).toHaveBeenCalledWith(
         `${id}::${thing.key}`,
         JSON.stringify(thing)
@@ -64,19 +64,33 @@ describe('When I instantiate a RedisDataStore with an id', () => {
   describe('When I update an item', () => {
     let result: TestThing[]
 
+    const existing = {
+      some: 'unmodified_property',
+      favouriteColour: 'tartan'
+    }
+
     beforeEach(async () => {
+      mockRedisClient.get.mockReturnValue(
+        JSON.stringify(existing)
+      )
       result = await instance.update(thing.key, thing)
     })
 
-    it('Then the client is used to set the item in redis, with the store id in the key', () => {
+    it('Then the client is used to get the item from redis', () => {
+      expect(mockRedisClient.get).toHaveBeenCalledWith(
+        `${id}::${thing.key}`
+      )
+    })
+
+    it('Then the client is used to set the item in redis', () => {
       expect(mockRedisClient.set).toHaveBeenCalledWith(
         `${id}::${thing.key}`,
-        JSON.stringify(thing)
+        JSON.stringify({ ...existing, ...thing })
       )
     })
 
     it('And a list containing the updated item only is returned', () => {
-      expect(result).toEqual([thing])
+      expect(result).toEqual([{ ...existing, ...thing }])
     })
   })
 
