@@ -4,7 +4,8 @@ import { createNodeRedisClient } from 'handy-redis'
 const createClient = createNodeRedisClient as jest.Mock
 
 const mockRedisClient = {
-  set: jest.fn()
+  set: jest.fn(),
+  del: jest.fn()
 }
 
 jest.mock('handy-redis')
@@ -75,11 +76,13 @@ describe('When I instantiate a RedisDataStore', () => {
 
   describe('When I remove an item', () => {
     beforeEach(async () => {
-      await instance.remove('key')
+      await instance.remove(thing.key)
     })
 
-    it('has tests', () => {
-      expect(true).toBe(true)
+    it('Then the client is used to del the item key in redis', () => {
+      expect(mockRedisClient.del).toHaveBeenCalledWith(
+        thing.key
+      )
     })
   })
 

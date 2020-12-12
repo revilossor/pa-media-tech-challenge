@@ -26,7 +26,9 @@ export default class RedisDataStore<T extends KeyedObject> implements IDataStore
     return await this.set(item)
   }
 
-  public async remove (key: string): Promise<void> {}
+  public async remove (key: string): Promise<void> {
+    await this.client.del(key)
+  }
 
   public async find (key: string): Promise<T[]> {
     return []
