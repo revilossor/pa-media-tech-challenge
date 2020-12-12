@@ -12,7 +12,8 @@ const mockRedisClient = {
   set: jest.fn(),
   del: jest.fn(),
   get: jest.fn(),
-  keys: jest.fn()
+  keys: jest.fn(),
+  quit: jest.fn()
 }
 
 jest.mock('handy-redis')
@@ -184,6 +185,16 @@ describe('When I instantiate a RedisDataStore with an id', () => {
       it('Then an informative error is thrown', async () => {
         await expect(instance.list()).rejects.toThrow(Error('malformed key'))
       })
+    })
+  })
+
+  describe('When I call close', () => {
+    beforeEach(async () => {
+      await instance.close()
+    })
+
+    it('Then the client connection is quit', () => {
+      expect(mockRedisClient.quit).toHaveBeenCalled()
     })
   })
 })

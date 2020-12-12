@@ -57,4 +57,8 @@ export default class RedisDataStore<T extends KeyedObject> implements IDataStore
     }
     return list
   }
+
+  public async close (): Promise<void> {
+    await this.client.quit()
+  }
 }
