@@ -56,7 +56,9 @@ describe('Given I have a lambda handler withErrorMapping', () => {
         })
 
         it('With the body as the message from the error', () => {
-          expect(result.body).toBe(mappedError.message)
+          expect(result.body).toBe(JSON.stringify({
+            message: mappedError.message
+          }))
         })
       })
     })
@@ -80,7 +82,9 @@ describe('Given I have a lambda handler withErrorMapping', () => {
         })
 
         it('With the body as the message from the error', () => {
-          expect(result.body).toBe(thrownError.message)
+          expect(result.body).toBe(JSON.stringify({
+            message: thrownError.message
+          }))
         })
       })
     })

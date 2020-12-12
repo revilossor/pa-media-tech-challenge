@@ -49,6 +49,11 @@
       "default",
       "jest-junit"
     ],
+    "coveragePathIgnorePatterns": [
+      "getEvent.ts",
+      "BadRequestError.ts",
+      "NotFoundError.ts"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 100,

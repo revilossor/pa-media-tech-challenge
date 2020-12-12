@@ -23,7 +23,7 @@ export default function withErrorMapping (params: ErrorMappingParams): APIGatewa
       }
       return {
         statusCode,
-        body: params.suppressErrorMessages === true ? '' : error.message
+        body: params.suppressErrorMessages === true ? '' : JSON.stringify({ message: error.message })
       }
     }
   }
