@@ -35,7 +35,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && jest tests/unit -o --collectCoverage=false",
+      "pre-commit": "lint-staged && jest -o --collectCoverage=false",
       "pre-push": "npm t"
     }
   },
