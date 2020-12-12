@@ -22,12 +22,14 @@ interface TestThing {
 }
 
 // TODO handle error cases...
-describe('When I instantiate a RedisDataStore', () => {
+describe('When I instantiate a RedisDataStore with an id', () => {
   let instance: RedisDataStore<TestThing>
+
+  const id = 'test_id'
 
   beforeEach(() => {
     createClient.mockImplementation(() => mockRedisClient)
-    instance = new RedisDataStore<TestThing>()
+    instance = new RedisDataStore<TestThing>(id)
   })
 
   describe('Then a redis client is initialised', () => {
@@ -45,9 +47,9 @@ describe('When I instantiate a RedisDataStore', () => {
       result = await instance.create(thing)
     })
 
-    it('Then the client is used to set the item in redis', () => {
+    it('Then the client is used to set the item in redis, with the store id in the key', () => {
       expect(mockRedisClient.set).toHaveBeenCalledWith(
-        thing.key,
+        `${id}::${thing.key}`,
         JSON.stringify(thing)
       )
     })
@@ -61,12 +63,12 @@ describe('When I instantiate a RedisDataStore', () => {
     let result: TestThing[]
 
     beforeEach(async () => {
-      result = await instance.update('key', thing)
+      result = await instance.update(thing.key, thing)
     })
 
-    it('Then the client is used to set the item in redis', () => {
+    it('Then the client is used to set the item in redis, with the store id in the key', () => {
       expect(mockRedisClient.set).toHaveBeenCalledWith(
-        thing.key,
+        `${id}::${thing.key}`,
         JSON.stringify(thing)
       )
     })
@@ -81,9 +83,9 @@ describe('When I instantiate a RedisDataStore', () => {
       await instance.remove(thing.key)
     })
 
-    it('Then the client is used to del the item key in redis', () => {
+    it('Then the client is used to del the store specific item key in redis', () => {
       expect(mockRedisClient.del).toHaveBeenCalledWith(
-        thing.key
+        `${id}::${thing.key}`
       )
     })
   })
@@ -98,8 +100,8 @@ describe('When I instantiate a RedisDataStore', () => {
       result = await instance.find(thing.key)
     })
 
-    it('Then the client is used to get the item key from redis', () => {
-      expect(mockRedisClient.get).toHaveBeenCalledWith(thing.key)
+    it('Then the client is used to get the store specific item key from redis', () => {
+      expect(mockRedisClient.get).toHaveBeenCalledWith(`${id}::${thing.key}`)
     })
 
     it('And the parsed thing returned from redis is returned', () => {
@@ -114,8 +116,8 @@ describe('When I instantiate a RedisDataStore', () => {
       result = await instance.find(thing.key)
     })
 
-    it('Then the client is used to get the item key from redis', () => {
-      expect(mockRedisClient.get).toHaveBeenCalledWith(thing.key)
+    it('Then the client is used to get the store specific item key from redis', () => {
+      expect(mockRedisClient.get).toHaveBeenCalledWith(`${id}::${thing.key}`)
     })
 
     it('And an empty array is returned', () => {
