@@ -11,7 +11,8 @@ const thing: TestThing = {
 const mockRedisClient = {
   set: jest.fn(),
   del: jest.fn(),
-  get: jest.fn()
+  get: jest.fn(),
+  keys: jest.fn()
 }
 
 jest.mock('handy-redis')
@@ -119,19 +120,60 @@ describe('When I instantiate a RedisDataStore with an id', () => {
         expect(mockRedisClient.get).toHaveBeenCalledWith(`${id}::${thing.key}`)
       })
 
-      it('And an empty array is returned', () => {
+      it('And an empty list is returned', () => {
         expect(result).toEqual([])
       })
     })
   })
 
   describe('When I list items', () => {
-    beforeEach(async () => {
-      await instance.list()
+    let result: TestThing[]
+
+    describe('And the store contains items', () => {
+      const anotherKey = 'anotherKey'
+
+      beforeEach(async () => {
+        mockRedisClient.keys.mockReturnValue([
+          `${id}::${thing.key}`,
+          `${id}::${anotherKey}`
+        ])
+        mockRedisClient.get.mockReturnValue(
+          JSON.stringify(thing)
+        )
+        result = await instance.list()
+      })
+
+      it('Then the client is used to get all keys with the store specific prefix', () => {
+        expect(mockRedisClient.keys).toHaveBeenCalledWith(`${id}::*`)
+      })
+
+      it('And the client is used to get each of the keys returned from the query', () => {
+        expect(mockRedisClient.get).toHaveBeenCalledWith(`${id}::${thing.key}`)
+        expect(mockRedisClient.get).toHaveBeenCalledWith(`${id}::${anotherKey}`)
+      })
+
+      it('And the parsed things returned from redis are returned', () => {
+        expect(result).toEqual([thing, thing]) // mock returns the same thing each call
+      })
     })
 
-    it('has tests', () => {
-      expect(true).toBe(true)
+    describe('And the store does not contain any items', () => {
+      beforeEach(async () => {
+        mockRedisClient.keys.mockReturnValue([])
+        result = await instance.list()
+      })
+
+      it('Then the client is used to get all keys with the store specific prefix', () => {
+        expect(mockRedisClient.keys).toHaveBeenCalledWith(`${id}::*`)
+      })
+
+      it('And no items are retrieved from redis', () => {
+        expect(mockRedisClient.get).not.toHaveBeenCalled()
+      })
+
+      it('And an empty list is returned', () => {
+        expect(result).toEqual([])
+      })
     })
   })
 })

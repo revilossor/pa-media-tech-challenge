@@ -44,6 +44,13 @@ export default class RedisDataStore<T extends KeyedObject> implements IDataStore
   }
 
   public async list (): Promise<T[]> {
-    return []
+    const keys = await this.client.keys(`${this.id}::*`)
+    const shortKeys = keys.map(key => key.split('::').pop() ?? '')
+    let list: T[] = []
+    for (const key of shortKeys) {
+      const item = await this.find(key)
+      list = [...list, ...item]
+    }
+    return list
   }
 }
