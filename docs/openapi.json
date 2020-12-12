@@ -52,9 +52,6 @@
           "200": {
             "$ref": "#/components/responses/listKeyListResponse"
           },
-          "404": {
-            "$ref": "#/components/responses/errorResponse",
-          },
           "500": {
             "$ref": "#/components/responses/errorResponse"
           }
@@ -71,9 +68,6 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/itemListResponse"
-          },
-          "204": {
             "$ref": "#/components/responses/itemListResponse"
           },
           "400": {
@@ -125,9 +119,6 @@
           "404": {
             "$ref": "#/components/responses/errorResponse",
           },
-          "422": {
-            "$ref": "#/components/responses/errorResponse",
-          },
           "500": {
             "$ref": "#/components/responses/errorResponse"
           }
@@ -144,9 +135,6 @@
             "$ref": "#/components/responses/itemListResponse"
           },
           "404": {
-            "$ref": "#/components/responses/errorResponse",
-          },
-          "422": {
             "$ref": "#/components/responses/errorResponse",
           },
           "500": {
