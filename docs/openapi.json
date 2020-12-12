@@ -96,7 +96,7 @@
           "$ref": "#/components/requestBodies/createItemRequest"
         },
         "responses": {
-          "201": {
+          "200": {
             "$ref": "#/components/responses/itemListResponse"
           },
           "404": {
