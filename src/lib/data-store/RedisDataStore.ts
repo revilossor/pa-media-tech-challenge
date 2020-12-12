@@ -10,7 +10,7 @@ export default class RedisDataStore<T extends KeyedObject> implements IDataStore
     })
   }
 
-  public async create (item: T): Promise<T[]> {
+  private async set (item: T): Promise<T[]> {
     await this.client.set(
       item.key,
       JSON.stringify(item)
@@ -18,8 +18,12 @@ export default class RedisDataStore<T extends KeyedObject> implements IDataStore
     return [item]
   }
 
+  public async create (item: T): Promise<T[]> {
+    return await this.set(item)
+  }
+
   public async update (key: string, item: T): Promise<T[]> {
-    return []
+    return await this.set(item)
   }
 
   public async remove (key: string): Promise<void> {}

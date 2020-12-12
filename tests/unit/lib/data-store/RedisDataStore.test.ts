@@ -42,7 +42,7 @@ describe('When I instantiate a RedisDataStore', () => {
       result = await instance.create(thing)
     })
 
-    it('Then the client is used to set an item in redis', () => {
+    it('Then the client is used to set the item in redis', () => {
       expect(mockRedisClient.set).toHaveBeenCalledWith(
         thing.key,
         JSON.stringify(thing)
@@ -55,12 +55,21 @@ describe('When I instantiate a RedisDataStore', () => {
   })
 
   describe('When I update an item', () => {
+    let result: TestThing[]
+
     beforeEach(async () => {
-      await instance.update('key', thing)
+      result = await instance.update('key', thing)
     })
 
-    it('has tests', () => {
-      expect(true).toBe(true)
+    it('Then the client is used to set the item in redis', () => {
+      expect(mockRedisClient.set).toHaveBeenCalledWith(
+        thing.key,
+        JSON.stringify(thing)
+      )
+    })
+
+    it('And a list containing the updated item only is returned', () => {
+      expect(result).toEqual([thing])
     })
   })
 
