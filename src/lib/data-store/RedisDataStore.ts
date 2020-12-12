@@ -48,6 +48,7 @@ export default class RedisDataStore<T extends KeyedObject> implements IDataStore
     const shortKeys = keys.map(key => key.split('::').pop() ?? '')
     let list: T[] = []
     for (const key of shortKeys) {
+      if (key === '') { throw Error('malformed key') }
       const item = await this.find(key)
       list = [...list, ...item]
     }

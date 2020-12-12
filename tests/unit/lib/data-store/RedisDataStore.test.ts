@@ -175,5 +175,15 @@ describe('When I instantiate a RedisDataStore with an id', () => {
         expect(result).toEqual([])
       })
     })
+
+    describe('And keys query returns a malformed key', () => {
+      beforeEach(() => {
+        mockRedisClient.keys.mockReturnValue([''])
+      })
+
+      it('Then an informative error is thrown', async () => {
+        await expect(instance.list()).rejects.toThrow(Error('malformed key'))
+      })
+    })
   })
 })
