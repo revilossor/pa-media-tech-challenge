@@ -176,7 +176,7 @@ describe('When I instantiate a RedisDataStore with an id', () => {
       })
     })
 
-    describe('And keys query returns a malformed key', () => {
+    describe('And the keys query returns a malformed key', () => {
       beforeEach(() => {
         mockRedisClient.keys.mockReturnValue([''])
       })
