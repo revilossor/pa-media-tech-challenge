@@ -35,11 +35,8 @@
           "$ref": "#/components/parameters/listKeyParameter"
         ],
         "responses": {
-          "201": {
+          "200": {
             "$ref": "#/components/responses/listKeyListResponse"
-          },
-          "409": {
-            "$ref": "#/components/responses/errorResponse",
           },
           "500": {
             "$ref": "#/components/responses/errorResponse"
