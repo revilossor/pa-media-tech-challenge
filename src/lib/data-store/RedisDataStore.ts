@@ -31,7 +31,8 @@ export default class RedisDataStore<T extends KeyedObject> implements IDataStore
   }
 
   public async find (key: string): Promise<T[]> {
-    return []
+    const item = await this.client.get(key)
+    return item == null ? [] : [JSON.parse(item)]
   }
 
   public async list (): Promise<T[]> {

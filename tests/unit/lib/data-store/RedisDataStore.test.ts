@@ -3,9 +3,15 @@ import { createNodeRedisClient } from 'handy-redis'
 
 const createClient = createNodeRedisClient as jest.Mock
 
+const thing: TestThing = {
+  key: 'a test thing',
+  favouriteColour: 'rainbow'
+}
+
 const mockRedisClient = {
   set: jest.fn(),
-  del: jest.fn()
+  del: jest.fn(),
+  get: jest.fn()
 }
 
 jest.mock('handy-redis')
@@ -15,11 +21,7 @@ interface TestThing {
   favouriteColour: string
 }
 
-const thing: TestThing = {
-  key: 'a test thing',
-  favouriteColour: 'rainbow'
-}
-
+// TODO handle error cases...
 describe('When I instantiate a RedisDataStore', () => {
   let instance: RedisDataStore<TestThing>
 
@@ -86,13 +88,38 @@ describe('When I instantiate a RedisDataStore', () => {
     })
   })
 
-  describe('When I find an item', () => {
+  describe('When I find an item that exists', () => {
+    let result: TestThing[]
+
     beforeEach(async () => {
-      await instance.find('key')
+      mockRedisClient.get.mockReturnValue(
+        JSON.stringify(thing)
+      )
+      result = await instance.find(thing.key)
     })
 
-    it('has tests', () => {
-      expect(true).toBe(true)
+    it('Then the client is used to get the item key from redis', () => {
+      expect(mockRedisClient.get).toHaveBeenCalledWith(thing.key)
+    })
+
+    it('And the parsed thing returned from redis is returned', () => {
+      expect(result).toEqual([thing])
+    })
+  })
+
+  describe('When I find an item that does not exist', () => {
+    let result: TestThing[]
+
+    beforeEach(async () => {
+      result = await instance.find(thing.key)
+    })
+
+    it('Then the client is used to get the item key from redis', () => {
+      expect(mockRedisClient.get).toHaveBeenCalledWith(thing.key)
+    })
+
+    it('And an empty array is returned', () => {
+      expect(result).toEqual([])
     })
   })
 
