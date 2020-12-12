@@ -5,7 +5,8 @@
   "main": "",
   "scripts": {
     "lint": "ts-standard",
-    "test": "jest",
+    "test": "jest tests/unit",
+    "integration": "jest tests/integration --collectCoverage=false",
     "start": "sls offline start",
     "clean": "rm -rf .build && rm -rf .serverless/*.zip",
     "build": "npm run clean && sls package",
@@ -16,11 +17,13 @@
   "license": "ISC",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.66",
+    "@types/node-fetch": "^2.5.7",
     "aws-lambda": "^1.0.6",
     "husky": "^4.3.5",
     "jest": "^26.6.3",
     "jest-junit": "^12.0.0",
     "lint-staged": "^10.5.3",
+    "node-fetch": "^2.6.1",
     "serverless": "^2.15.0",
     "serverless-offline": "^6.8.0",
     "serverless-plugin-typescript": "^1.1.9",
@@ -30,7 +33,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && jest -o --collectCoverage=false",
+      "pre-commit": "lint-staged && jest tests/unit -o --collectCoverage=false",
       "pre-push": "npm t"
     }
   },
@@ -40,7 +43,10 @@
     "preset": "ts-jest",
     "resetMocks": true,
     "testEnvironment": "node",
-    "reporters": [ "default", "jest-junit" ],
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 100,
