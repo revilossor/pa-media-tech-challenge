@@ -19,20 +19,28 @@ functions:
       - http:
           path: /v1/hello
           method: get
-
   get-lists:
     handler: src/get-lists/index.main
     events:
       - http:
           path: /v1/list
           method: get
-
   create-list:
     handler: src/create-list/index.main
     events:
       - http:
           path: /v1/list/{listKey}
           method: put
+          request:
+            parameters:
+              paths:
+                listKey: true
+  remove-list:
+    handler: src/remove-list/index.main
+    events:
+      - http:
+          path: /v1/list/{listKey}
+          method: delete
           request:
             parameters:
               paths:
