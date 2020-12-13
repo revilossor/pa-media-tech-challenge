@@ -56,6 +56,7 @@ describe('When I invoke the update-item handler', () => {
     it('And the item is updated in the item repository', () => {
       expect(mockItemRepo.update).toHaveBeenCalledWith({
         key: itemKey,
+        listKey,
         value
       })
     })

@@ -27,6 +27,7 @@ async function handler (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRes
   const itemRepo = ItemRepository.fromId(listKey)
   const item = await itemRepo.update({
     key: itemKey,
+    listKey,
     value
   })
 
