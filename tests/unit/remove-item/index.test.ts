@@ -39,7 +39,6 @@ describe('When I invoke the remove-item handler', () => {
     beforeEach(async () => {
       parse.mockReturnValue({ listKey, itemKey })
       mockListRepo.find.mockResolvedValue([{ listKey }])
-      mockItemRepo.remove.mockResolvedValue([{ itemKey }])
       result = await main(event)
     })
 
@@ -68,9 +67,9 @@ describe('When I invoke the remove-item handler', () => {
         expect(result.statusCode).toBe(200)
       })
 
-      it('And a list containing just the removed item', () => {
+      it('And a list containing just the removed items key', () => {
         expect(result.body).toBe(JSON.stringify([{
-          itemKey
+          key: itemKey
         }]))
       })
     })

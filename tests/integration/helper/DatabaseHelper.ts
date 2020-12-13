@@ -18,11 +18,11 @@ export default class DatabaseHelper<T extends KeyedObject> {
     }
   }
 
-  public async add (...items: T[]): Promise<void> {
+  public async add (...items: KeyedObject[]): Promise<void> {
     while (items.length > 0) {
       const item = items.pop()
       if (item !== undefined) {
-        await this.store.create(item)
+        await this.store.create(item as T)
       }
     }
   }

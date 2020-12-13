@@ -22,14 +22,14 @@ async function handler (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRes
   }
 
   const itemRepo = ItemRepository.fromId(listKey)
-  const item = await itemRepo.remove(itemKey)
+  await itemRepo.remove(itemKey)
 
   await listRepo.close()
   await itemRepo.close()
 
   return {
     statusCode: 200,
-    body: JSON.stringify(item)
+    body: JSON.stringify([{ key: itemKey }])
   }
 }
 

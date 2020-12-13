@@ -61,7 +61,7 @@ functions:
                 listKey: true
                 itemKey: true
   delete-item:
-    handler: src/delete-item/index.main
+    handler: src/remove-item/index.main
     events:
       - http:
           path: /v1/list/{listKey}/item/{itemKey}
