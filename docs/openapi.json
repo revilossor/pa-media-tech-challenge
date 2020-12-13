@@ -29,6 +29,28 @@
       }
     },
     "/v1/list/{listKey}": {
+      "get": {
+        "summary": "get the items in a list",
+        "parameters": [
+          "$ref": "#/components/parameters/listKeyParameter",
+          "$ref": "#/components/parameters/orderParameter",
+          "$ref": "#/components/parameters/pageParameter"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/itemListResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "404": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "500": {
+            "$ref": "#/components/responses/errorResponse"
+          }
+        }
+      },
       "put": {
         "summary": "create a list",
         "parameters": [
@@ -59,28 +81,6 @@
       }
     },
     "/v1/list/{listKey}/item": {
-      "get": {
-        "summary": "get the items in a list",
-        "parameters": [
-          "$ref": "#/components/parameters/listKeyParameter",
-          "$ref": "#/components/parameters/orderParameter",
-          "$ref": "#/components/parameters/pageParameter"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/itemListResponse"
-          },
-          "400": {
-            "$ref": "#/components/responses/errorResponse",
-          },
-          "404": {
-            "$ref": "#/components/responses/errorResponse",
-          },
-          "500": {
-            "$ref": "#/components/responses/errorResponse"
-          }
-        }
-      },
       "put": {
         "summary": "create an item in a list",
         "parameters": [
