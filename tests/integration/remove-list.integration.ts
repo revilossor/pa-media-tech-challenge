@@ -18,12 +18,17 @@ afterAll(async () => {
 describe('When I make a request to the create list endpoint', () => {
   let response: Response
 
-  describe('And the list does not exist', () => {
+  describe('And the list exists', () => {
     beforeEach(async () => {
-      await listDB.clear()
+      await listDB.add({ key })
       response = await fetch(url, {
         method: 'delete'
       })
+    })
+
+    it('Then the list is removed', async () => {
+      const item = await listDB.find(key)
+      expect(item).toHaveLength(0)
     })
 
     it('Then the status code is 200', () => {
@@ -36,17 +41,12 @@ describe('When I make a request to the create list endpoint', () => {
     })
   })
 
-  describe('And the list exists', () => {
+  describe('And the list does not exist', () => {
     beforeEach(async () => {
-      await listDB.add({ key })
+      await listDB.clear()
       response = await fetch(url, {
         method: 'delete'
       })
-    })
-
-    it('Then the list is removed', async () => {
-      const item = await listDB.find(key)
-      expect(item).toHaveLength(0)
     })
 
     it('Then the status code is 200', () => {
