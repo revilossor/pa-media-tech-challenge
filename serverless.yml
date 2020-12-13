@@ -71,6 +71,17 @@ functions:
               paths:
                 listKey: true
                 itemKey: true
+  update-item:
+    handler: src/update-item/index.main
+    events:
+      - http:
+          path: /v1/list/{listKey}/item/{itemKey}
+          method: patch
+          request:
+            parameters:
+              paths:
+                listKey: true
+                itemKey: true
 custom:
   serverless-offline:
     host: 0.0.0.0

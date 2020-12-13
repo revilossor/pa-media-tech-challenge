@@ -22,12 +22,12 @@ export default class ItemRepository extends Repository<Item> {
     })
   }
 
-  public async update (item: Item): Promise<Item[]> {
+  public async update (item: KeyedObject): Promise<Item[]> {
     const now = this.getTimestamp()
     return await super.update({
       ...item,
       updatedAt: now
-    })
+    } as unknown as Item)
   }
 
   public async remove (key: string): Promise<void> {
