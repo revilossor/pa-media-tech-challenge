@@ -13,6 +13,7 @@ beforeAll(() => {
 })
 
 afterAll(async () => {
+  await listDB.clear()
   await listDB.close()
 })
 
@@ -20,7 +21,6 @@ describe('When I make a request to the create list endpoint', () => {
   let response: Response
 
   beforeEach(async () => {
-    await listDB.clear()
     response = await fetch(url, {
       method: 'put'
     })
