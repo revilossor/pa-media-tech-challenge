@@ -6,8 +6,8 @@ export default abstract class Repository<T extends KeyedObject> {
     return await this.store.create(item)
   }
 
-  protected async remove (item: T): Promise<void> {
-    return await this.store.remove(item.key)
+  protected async remove (key: string): Promise<void> {
+    return await this.store.remove(key)
   }
 
   protected async update (item: T): Promise<T[]> {

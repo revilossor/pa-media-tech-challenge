@@ -30,8 +30,8 @@ export default class ItemRepository extends Repository<Item> {
     })
   }
 
-  public async remove (item: Item): Promise<void> {
-    return await super.remove(item)
+  public async remove (key: string): Promise<void> {
+    return await super.remove(key)
   }
 
   public async list (): Promise<Item[]> {

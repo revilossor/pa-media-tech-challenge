@@ -11,7 +11,7 @@ async function handler (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRes
   }
   const repo = ListRepository.fromId('all_lists')
   const list = { key: listKey }
-  await repo.remove(list)
+  await repo.remove(list.key)
   await repo.close()
   return {
     statusCode: 200,

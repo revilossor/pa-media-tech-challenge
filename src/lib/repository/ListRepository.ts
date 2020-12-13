@@ -7,8 +7,8 @@ export default class ListRepository extends Repository<List> {
     return await super.create(list)
   }
 
-  public async remove (list: List): Promise<void> {
-    return await super.remove(list)
+  public async remove (key: string): Promise<void> {
+    return await super.remove(key)
   }
 
   public async list (): Promise<List[]> {

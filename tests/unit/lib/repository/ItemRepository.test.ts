@@ -57,7 +57,7 @@ describe('When I instantiate an item repository', () => {
   })
   describe('And I remove an item', () => {
     beforeEach(async () => {
-      await instance.remove(item)
+      await instance.remove(item.key)
     })
 
     it('Then the item is removed in the data store', () => {

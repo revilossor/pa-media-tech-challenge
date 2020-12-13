@@ -60,6 +60,17 @@ functions:
               paths:
                 listKey: true
                 itemKey: true
+  delete-item:
+    handler: src/delete-item/index.main
+    events:
+      - http:
+          path: /v1/list/{listKey}/item/{itemKey}
+          method: delete
+          request:
+            parameters:
+              paths:
+                listKey: true
+                itemKey: true
 custom:
   serverless-offline:
     host: 0.0.0.0

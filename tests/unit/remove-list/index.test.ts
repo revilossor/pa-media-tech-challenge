@@ -36,7 +36,7 @@ describe('When I invoke the remove-list handler', () => {
     })
 
     it('And the list is removed', () => {
-      expect(mockRepo.remove).toHaveBeenCalledWith({ key })
+      expect(mockRepo.remove).toHaveBeenCalledWith(key)
     })
 
     it('And the list repository is closed', () => {

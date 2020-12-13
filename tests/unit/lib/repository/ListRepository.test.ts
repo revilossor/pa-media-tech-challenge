@@ -34,7 +34,7 @@ describe('When I instantiate a list repository', () => {
   })
   describe('And I remove a list', () => {
     beforeEach(async () => {
-      await instance.remove(list)
+      await instance.remove(list.key)
     })
 
     it('Then the list is removed in the data store', () => {
