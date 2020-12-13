@@ -1,13 +1,19 @@
 import { Item } from '../../types'
+import { KeyedObject } from '../data-store/IDataStore'
 import RedisDataStore from '../data-store/RedisDataStore'
 import Repository from './Repository'
+
+interface CreateItemParams extends KeyedObject {
+  listKey: string
+  value: string
+}
 
 export default class ItemRepository extends Repository<Item> {
   private getTimestamp (): string {
     return `${new Date().toISOString()}`
   }
 
-  public async create (item: Item): Promise<Item[]> {
+  public async create (item: CreateItemParams): Promise<Item[]> {
     const now = this.getTimestamp()
     return await super.create({
       ...item,

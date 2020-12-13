@@ -60,6 +60,9 @@
           "200": {
             "$ref": "#/components/responses/listKeyListResponse"
           },
+          "400": {
+            "$ref": "#/components/responses/errorResponse",
+          },
           "500": {
             "$ref": "#/components/responses/errorResponse"
           }
@@ -74,26 +77,7 @@
           "200": {
             "$ref": "#/components/responses/listKeyListResponse"
           },
-          "500": {
-            "$ref": "#/components/responses/errorResponse"
-          }
-        }
-      }
-    },
-    "/v1/list/{listKey}/item": {
-      "put": {
-        "summary": "create an item in a list",
-        "parameters": [
-          "$ref": "#/components/parameters/listKeyParameter"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/createItemRequest"
-        },
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/itemListResponse"
-          },
-          "404": {
+          "400": {
             "$ref": "#/components/responses/errorResponse",
           },
           "500": {
@@ -103,6 +87,30 @@
       }
     },
     "/v1/list/{listKey}/item/{itemKey}": {
+      "put": {
+        "summary": "create an item in a list",
+        "parameters": [
+          "$ref": "#/components/parameters/listKeyParameter",
+          "$ref": "#/components/parameters/itemKeyParameter"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/createItemRequest"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/itemListResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "404": {
+            "$ref": "#/components/responses/errorResponse",
+          },
+          "500": {
+            "$ref": "#/components/responses/errorResponse"
+          }
+        }
+      },
       "patch": {
         "summary": "update an item in a list",
         "parameters": [
@@ -115,6 +123,9 @@
         "responses": {
           "200": {
             "$ref": "#/components/responses/itemListResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/errorResponse",
           },
           "404": {
             "$ref": "#/components/responses/errorResponse",
@@ -133,6 +144,9 @@
         "responses": {
           "200": {
             "$ref": "#/components/responses/itemListResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/errorResponse",
           },
           "404": {
             "$ref": "#/components/responses/errorResponse",

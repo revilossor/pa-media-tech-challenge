@@ -46,8 +46,17 @@ describe('When I instantiate a list repository', () => {
       await instance.list()
     })
 
-    it('Then the the lists are fetched from the data store', () => {
+    it('Then the lists are fetched from the data store', () => {
       expect(dataStore.list).toHaveBeenCalled()
+    })
+  })
+  describe('And I find a list', () => {
+    beforeEach(async () => {
+      await instance.find(list.key)
+    })
+
+    it('Then data store is used to find the list', () => {
+      expect(dataStore.find).toHaveBeenCalledWith(list.key)
     })
   })
   describe('And I close the repository', () => {

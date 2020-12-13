@@ -62,8 +62,8 @@ describe('When I invoke the create-list handler', () => {
     })
 
     describe('Then the handler returns correctly', () => {
-      it('With a statusCode of 500', () => {
-        expect(result.statusCode).toBe(500)
+      it('With a statusCode of 400', () => {
+        expect(result.statusCode).toBe(400)
       })
 
       it('And an informative message', () => {

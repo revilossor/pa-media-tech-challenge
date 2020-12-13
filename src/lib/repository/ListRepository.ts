@@ -15,6 +15,10 @@ export default class ListRepository extends Repository<List> {
     return await super.list()
   }
 
+  public async find (key: string): Promise<List[]> {
+    return await super.find(key)
+  }
+
   public async close (): Promise<void> {
     return await super.close()
   }

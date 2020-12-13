@@ -18,6 +18,10 @@ export default abstract class Repository<T extends KeyedObject> {
     return await this.store.list()
   }
 
+  protected async find (key: string): Promise<T[]> {
+    return await this.store.find(key)
+  }
+
   protected async close (): Promise<void> {
     return await this.store.close()
   }
