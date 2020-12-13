@@ -11,10 +11,9 @@ const url = `http://localhost:3000/dev/v1/list/${listKey}/item/${itemKey}`
 let listDB: DatabaseHelper<List>
 let itemDB: DatabaseHelper<Item>
 
-beforeAll(async () => {
+beforeAll(() => {
   listDB = new DatabaseHelper<List>('all_lists')
   itemDB = new DatabaseHelper<Item>(listKey)
-  await listDB.add({ key: listKey })
 })
 
 afterAll(async () => {
@@ -29,6 +28,7 @@ describe('When I make a request to the create item endpoint', () => {
 
   describe('And the payload is valid', () => {
     beforeEach(async () => {
+      await listDB.add({ key: listKey })
       await itemDB.clear()
       response = await fetch(url, {
         method: 'put',
@@ -67,6 +67,7 @@ describe('When I make a request to the create item endpoint', () => {
 
   describe('And the payload does not contain a value property', () => {
     beforeEach(async () => {
+      await listDB.add({ key: listKey })
       response = await fetch(url, {
         method: 'put'
       })
@@ -103,6 +104,51 @@ describe('When I make a request to the create item endpoint', () => {
       const body = await response.json()
       expect(body).toEqual({
         message: `unable to find list "${listKey}"`
+      })
+    })
+  })
+
+  describe('And the item already exists', () => {
+    beforeEach(async () => {
+      await listDB.add({ key: listKey })
+      await itemDB.add({
+        key: itemKey,
+        listKey,
+        value,
+        createdAt: 'now',
+        updatedAt: 'now'
+      })
+      response = await fetch(url, {
+        method: 'put',
+        body: JSON.stringify({
+          value
+        })
+      })
+    })
+
+    it('Then an item is created with the correct key', async () => {
+      const [item] = await itemDB.find(itemKey)
+      expect(item).toEqual({
+        key: itemKey,
+        listKey,
+        value,
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String)
+      })
+    })
+
+    it('And the status code is 200', () => {
+      expect(response.status).toBe(200)
+    })
+
+    it('And the body contains the created item', async () => {
+      const [item] = await response.json()
+      expect(item).toEqual({
+        key: itemKey,
+        listKey,
+        value,
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String)
       })
     })
   })
