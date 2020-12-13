@@ -32,9 +32,7 @@
       "get": {
         "summary": "get the items in a list",
         "parameters": [
-          "$ref": "#/components/parameters/listKeyParameter",
-          "$ref": "#/components/parameters/orderParameter",
-          "$ref": "#/components/parameters/pageParameter"
+          "$ref": "#/components/parameters/listKeyParameter"
         ],
         "responses": {
           "200": {
@@ -177,26 +175,7 @@
         "schema": {
           "$ref": "#/components/schemas/itemKeySchema"
         }
-      },
-      "orderParameter": {
-        "name": "order",
-        "in": "query",
-        "description": "sort order for list items",
-        "schema": {
-          "type": "string",
-          "enum": ["ascending", "descending"],
-          "example": "descending"
-        }
-      },
-      "pageParameter": {
-        "name": "page",
-        "in": "query",
-        "description": "page for paginated items",
-        "schema": {
-          "type": "integer",
-          "example": 1
-        }
-      },
+      }
     },
     "requestBodies": {
       "createItemRequest": {
