@@ -5,34 +5,35 @@ const listKey = 'listKey'
 const itemKey = 'itemKey'
 const value = 'value'
 
-describe.each([
-  [
-    { pathParameters: { listKey, itemKey }, body: '{"value":"value"}' },
-    { listKey, itemKey, value }
-  ],
-  [
-    { pathParameters: { itemKey }, body: '{"value":"value"}' },
-    { itemKey, value }
-  ],
-  [
-    { pathParameters: { listKey }, body: '{"value":"value"}' },
-    { listKey, value }
-  ],
-  [
-    { pathParameters: { listKey, itemKey }, body: '' },
-    { listKey, itemKey }
-  ],
-  [
-    { pathParameters: { listKey, itemKey } },
-    { listKey, itemKey }
-  ],
-  [
-    { body: '' },
-    {}
-  ]
-])('When I parse an event', (event, expected) => {
-  describe(`And the event is "${JSON.stringify(event)}"`, () => {
-    it('Then the returned structure has the correct keys', () => {
+describe('When I parse an event', () => {
+  describe.each([
+    [
+      'contains all parameters',
+      { pathParameters: { listKey, itemKey }, body: '{"value":"value"}' },
+      { listKey, itemKey, value }
+    ],
+    [
+      'contains item key and value',
+      { pathParameters: { itemKey }, body: '{"value":"value"}' },
+      { itemKey, value }
+    ],
+    [
+      'contains list key and value',
+      { pathParameters: { listKey }, body: '{"value":"value"}' },
+      { listKey, value }
+    ],
+    [
+      'has an empty body and no keys',
+      { body: '' },
+      { }
+    ],
+    [
+      'has no body',
+      { pathParameters: { listKey, itemKey } },
+      { listKey, itemKey }
+    ]
+  ])('And the event %s', (_, event, expected) => {
+    it(`The the returned structure has "${Object.keys(expected).join(' ')}" keys`, () => {
       expect(parseEvent(event as unknown as APIGatewayProxyEvent)).toEqual(expected)
     })
   })
