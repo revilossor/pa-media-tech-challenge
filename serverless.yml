@@ -19,6 +19,16 @@ functions:
       - http:
           path: /v1/list
           method: get
+  get-items:
+    handler: src/get-items/index.main
+    events:
+      - http:
+          path: /v1/list/{listKey}
+          method: get
+          request:
+            parameters:
+              paths:
+                listKey: true
   create-list:
     handler: src/create-list/index.main
     events:
