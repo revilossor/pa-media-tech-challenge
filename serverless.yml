@@ -13,12 +13,6 @@ provider:
     shouldStartNameWithService: true
 
 functions:
-  hello-world:
-    handler: src/hello-world/index.main
-    events:
-      - http:
-          path: /v1/hello
-          method: get
   get-lists:
     handler: src/get-lists/index.main
     events:
