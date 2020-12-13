@@ -31,12 +31,12 @@ functions:
     handler: src/create-list/index.main
     events:
       - http:
-          path: /v1/list/{listId}
+          path: /v1/list/{listKey}
           method: put
           request:
             parameters:
               paths:
-                listId: true
+                listKey: true
 
 custom:
   serverless-offline:

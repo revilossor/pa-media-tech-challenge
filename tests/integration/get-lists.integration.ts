@@ -52,8 +52,11 @@ describe('When I make a request to the get lists endpoint', () => {
       expect(response.status).toBe(200)
     })
 
-    it('And the body contains an empty array', () => {
-      expect(body).toEqual(lists)
+    it('And the body contains all the lists', () => {
+      expect(body).toHaveLength(lists.length)
+      lists.forEach(list => {
+        expect(body).toContainEqual(list)
+      })
     })
   })
 })

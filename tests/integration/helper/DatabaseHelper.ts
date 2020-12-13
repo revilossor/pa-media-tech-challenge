@@ -30,4 +30,8 @@ export default class DatabaseHelper<T extends KeyedObject> {
   public async close (): Promise<void> {
     await this.store.close()
   }
+
+  public async find (key: string): Promise<T[]> {
+    return await this.store.find(key)
+  }
 }

@@ -4,6 +4,7 @@ import parseEvent from '../lib/parseEvent'
 import ListRepository from '../lib/repository/ListRepository'
 
 async function handler (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+  console.dir({ event })
   const repo = ListRepository.fromId('all_lists')
   const { listKey } = parseEvent(event)
   if (listKey === undefined) {
